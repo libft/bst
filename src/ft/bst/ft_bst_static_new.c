@@ -14,7 +14,11 @@
 
 #include <stdlib.h>
 
-t_ft_bst_static	*new_ft_bst_static(size_t key_length, size_t value_length)
+t_ft_bst_static	*new_ft_bst_static(
+	size_t key_length,
+	size_t value_length,
+	t_ft_bst_static_comparator comparator
+)
 {
 	t_ft_bst_static *const	result = malloc(sizeof(t_ft_bst_static));
 
@@ -23,5 +27,6 @@ t_ft_bst_static	*new_ft_bst_static(size_t key_length, size_t value_length)
 	result->key_length = key_length;
 	result->value_length = value_length;
 	result->root = NULL;
+	result->comparator = comparator;
 	return (result);
 }

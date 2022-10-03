@@ -24,7 +24,8 @@ typedef t_err	(*t_ft_bst_static_iterate_param)(
 
 t_ft_bst_static		*new_ft_bst_static(
 						size_t key_length,
-						size_t value_length);
+						size_t value_length,
+						t_ft_bst_static_comparator comparator);
 bool				ft_bst_static_get(
 						t_ft_bst_static *self,
 						void *key,
