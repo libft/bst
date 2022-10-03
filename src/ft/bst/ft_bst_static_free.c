@@ -10,39 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BST_H
-# define FT_BST_H
+#include "ft_bst.h"
 
-# include "ft_bst_types.h"
+#include <stdlib.h>
 
-# include "ft_types.h"
+static void	free_subtree(t_ft_bst_static_node *node)
+{
+	if (node->left)
+		free_subtree(node->left);
+	if (node->right)
+		free_subtree(node->right);
+	free(node);
+}
 
-typedef t_err	(*t_ft_bst_static_iterate_param)(
-					void *context,
-					void *key,
-					void *value);
-
-t_ft_bst_static		*new_ft_bst_static(
-						size_t key_length,
-						size_t value_length,
-						t_ft_bst_static_comparator comparator);
-bool				ft_bst_static_get(
-						t_ft_bst_static *self,
-						void *key,
-						void *value);
-t_err				ft_bst_static_put(
-						t_ft_bst_static *self,
-						void *key,
-						void *value);
-bool				ft_bst_static_pop(
-						t_ft_bst_static *self,
-						void *key,
-						void *value);
-t_err				ft_bst_static_iterate(
-						t_ft_bst_static *self,
-						void *t_ft_bst_static_iterate_param,
-						void *value);
-void				ft_bst_static_free(
-						t_ft_bst_static *self);
-
-#endif
+void	ft_bst_static_free(t_ft_bst_static *self)
+{
+	free_subtree(self->root);
+	free(self);
+}

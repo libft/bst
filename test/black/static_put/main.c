@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_bst.h"
-#include "ft_bst_types.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -64,6 +63,7 @@ static void	test(size_t skip[6])
 	while (++i < 7)
 		if (ft_bst_static_put(bst, &order[i], &order[i]))
 			exit(EXIT_FAILURE);
+	ft_bst_static_free(bst);
 }
 
 int	main(void)
