@@ -1,3 +1,9 @@
 {
   "version": "2.0.0",
   "tasks": [
+    {
+      "label": "Build test/black/static_put",
+      "type": "shell",
+      "command": "make -C test/black/static_put PROFILE=debug TARGET=development .cache/test.development.debug.exe",
+      "problemMatcher": ["$gcc"],
+    }

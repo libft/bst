@@ -1,3 +1,11 @@
 {
   "version": "0.2.0",
   "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Launch",
+      "program": "${workspaceFolder}/test/black/static_put/.cache/test.development.debug.exe",
+      "cwd": "${workspaceFolder}/test/black/static_put/",
+      "preLaunchTask": "Build test/black/static_put",
+    }
