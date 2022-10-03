@@ -17,11 +17,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int	size_t_comparator(void *a, void *b)
+static int	size_t_comparator(const void *a, const void *b)
 {
-	if (*((size_t *)a) > *((size_t *)b))
+	if (*((const size_t *)a) > *((const size_t *)b))
 		return (1);
-	if (*((size_t *)a) < *((size_t *)b))
+	if (*((const size_t *)a) < *((const size_t *)b))
 		return (-1);
 	return (0);
 }
@@ -45,21 +45,27 @@ static size_t	skipped(bool inserted[7], size_t skip)
 
 static bool	test_leak(const void *context)
 {
-	const size_t	*order = context;
-	t_ft_bst_static	*bst;
-	size_t			i;
+	const size_t *const	order = context;
+	t_ft_bst_static		*bst;
+	size_t				i;
 
 	leak_test_start();
 	bst = new_ft_bst_static(
 			sizeof(size_t), sizeof(size_t), size_t_comparator);
 	if (!bst)
-		exit(EXIT_FAILURE);
+		return (false);
 	i = -1;
 	while (++i < 7)
+	{
 		if (ft_bst_static_put(bst, &order[i], &order[i]))
-			exit(EXIT_FAILURE);
+		{
+			ft_bst_static_free(bst);
+			return (false);
+		}
+	}
 	ft_bst_static_free(bst);
 	leak_test_end();
+	return (false);
 }
 
 static void	test(size_t skip[6])
