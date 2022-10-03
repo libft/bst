@@ -12,6 +12,8 @@
 
 #include "ft_bst.h"
 
+#include <stdlib.h>
+
 #include "ft_bst_internal.h"
 
 static inline void	memcpy(void *dest, const void *source, size_t length)
@@ -25,25 +27,61 @@ static inline void	memcpy(void *dest, const void *source, size_t length)
 		d[i] = s[i];
 }
 
-static bool	get(
+static t_ft_bst_static_node	*pop_right_node(
+	t_ft_bst_static_node **node
+)
+{
+	t_ft_bst_static_node	*result;
+
+	if ((*node)->right)
+		return (pop_right_node(&(*node)->right));
+	result = *node;
+	*node = (*node)->left;
+	return (result);
+}
+
+static void	delete_node(
+	t_ft_bst_static_node **node
+)
+{
+	t_ft_bst_static_node	*replacement;
+
+	if (!(*node)->left && !(*node)->right)
+		replacement = NULL;
+	else if (!(*node)->left)
+		replacement = (*node)->left;
+	else if (!(*node)->right)
+		replacement = (*node)->right;
+	else
+	{
+		replacement = pop_right_node(&(*node)->left);
+		replacement->left = (*node)->left;
+		replacement->right = (*node)->right;
+	}
+	free(*node);
+	*node = replacement;
+}
+
+static bool	pop(
 	const t_ft_bst_static_context *context,
-	t_ft_bst_static_node *node
+	t_ft_bst_static_node **node
 )
 {
 	int	comparison;
 
-	if (!node)
+	if (!*node)
 		return (false);
-	comparison = context->self->comparator(node->value, context->value);
+	comparison = context->self->comparator((*node)->value, context->value);
 	if (comparison < 0)
-		return (get(context, node->right));
+		return (pop(context, &(*node)->right));
 	if (comparison > 0)
-		return (get(context, node->left));
-	memcpy(context->value, node->value, context->self->value_length);
+		return (pop(context, &(*node)->left));
+	memcpy(context->value, (*node)->value, context->self->value_length);
+	delete_node(node);
 	return (false);
 }
 
-bool	ft_bst_static_get(
+bool	ft_bst_static_pop(
 	t_ft_bst_static *self,
 	void *key,
 	void *value
@@ -51,5 +89,5 @@ bool	ft_bst_static_get(
 {
 	const t_ft_bst_static_context	context = {self, key, value};
 
-	return (get(&context, self->root));
+	return (pop(&context, &self->root));
 }
