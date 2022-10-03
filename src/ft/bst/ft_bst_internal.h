@@ -15,11 +15,18 @@
 
 # include "ft_bst_types.h"
 
-typedef struct s_ft_bst_static_context
+typedef struct s_ft_bst_static_context_r
 {
 	t_ft_bst_static	*self;
-	void			*key;
+	const void		*key;
+	const void		*value;
+}	t_ft_bst_static_context_r;
+
+typedef struct s_ft_bst_static_context_w
+{
+	t_ft_bst_static	*self;
+	const void		*key;
 	void			*value;
-}	t_ft_bst_static_context;
+}	t_ft_bst_static_context_w;
 
 #endif

@@ -27,7 +27,7 @@ static inline void	memcpy(void *dest, const void *source, size_t length)
 		d[i] = s[i];
 }
 
-static t_ft_bst_static_node	*new_node(const t_ft_bst_static_context *context)
+static t_ft_bst_static_node	*new_node(const t_ft_bst_static_context_r *context)
 {
 	t_ft_bst_static_node *const	result = malloc(sizeof(t_ft_bst_static_node)
 			+ context->self->value_length + context->self->key_length);
@@ -41,7 +41,7 @@ static t_ft_bst_static_node	*new_node(const t_ft_bst_static_context *context)
 }
 
 static t_err	put(
-	const t_ft_bst_static_context *context,
+	const t_ft_bst_static_context_r *context,
 	t_ft_bst_static_node **node
 )
 {
@@ -62,11 +62,11 @@ static t_err	put(
 
 t_err	ft_bst_static_put(
 	t_ft_bst_static *self,
-	void *key,
-	void *value
+	const void *key,
+	const void *value
 )
 {
-	const t_ft_bst_static_context	context = {self, key, value};
+	const t_ft_bst_static_context_r	context = {self, key, value};
 
 	return (put(&context, &self->root));
 }

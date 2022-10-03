@@ -26,7 +26,7 @@ static inline void	memcpy(void *dest, const void *source, size_t length)
 }
 
 static bool	get(
-	const t_ft_bst_static_context *context,
+	const t_ft_bst_static_context_w *context,
 	t_ft_bst_static_node *node
 )
 {
@@ -45,11 +45,11 @@ static bool	get(
 
 bool	ft_bst_static_get(
 	t_ft_bst_static *self,
-	void *key,
+	const void *key,
 	void *value
 )
 {
-	const t_ft_bst_static_context	context = {self, key, value};
+	const t_ft_bst_static_context_w	context = {self, key, value};
 
 	return (get(&context, self->root));
 }

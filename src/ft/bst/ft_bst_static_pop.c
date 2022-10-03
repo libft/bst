@@ -63,7 +63,7 @@ static void	delete_node(
 }
 
 static bool	pop(
-	const t_ft_bst_static_context *context,
+	const t_ft_bst_static_context_w *context,
 	t_ft_bst_static_node **node
 )
 {
@@ -83,11 +83,11 @@ static bool	pop(
 
 bool	ft_bst_static_pop(
 	t_ft_bst_static *self,
-	void *key,
+	const void *key,
 	void *value
 )
 {
-	const t_ft_bst_static_context	context = {self, key, value};
+	const t_ft_bst_static_context_w	context = {self, key, value};
 
 	return (pop(&context, &self->root));
 }

@@ -19,7 +19,7 @@
 
 typedef t_err	(*t_ft_bst_static_iterate_param)(
 					void *context,
-					void *key,
+					const void *key,
 					void *value);
 
 t_ft_bst_static		*new_ft_bst_static(
@@ -28,20 +28,20 @@ t_ft_bst_static		*new_ft_bst_static(
 						t_ft_bst_static_comparator comparator);
 bool				ft_bst_static_get(
 						t_ft_bst_static *self,
-						void *key,
+						const void *key,
 						void *value);
 t_err				ft_bst_static_put(
 						t_ft_bst_static *self,
-						void *key,
-						void *value);
+						const void *key,
+						const void *value);
 bool				ft_bst_static_pop(
 						t_ft_bst_static *self,
-						void *key,
+						const void *key,
 						void *value);
 t_err				ft_bst_static_iterate(
 						t_ft_bst_static *self,
 						void *t_ft_bst_static_iterate_param,
-						void *value);
+						void *context);
 void				ft_bst_static_free(
 						t_ft_bst_static *self);
 
