@@ -10,23 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BST_INTERNAL_H
-# define FT_BST_INTERNAL_H
+#include "ft_bst.h"
 
-# include "ft_bst_types.h"
+#include "ft_bst_internal.h"
 
-typedef struct s_ft_bst_static_get
+static inline void	memcpy(void *dest, const void *source, size_t length)
 {
-	t_ft_bst_static	*self;
-	void			*key;
-	void			*value;
-}	t_ft_bst_static_get;
+	unsigned char *const		d = dest;
+	const unsigned char *const	s = source;
+	size_t						i;
 
-typedef struct s_ft_bst_static_put
+	i = -1;
+	while (++i < length)
+		d[i] = s[i];
+}
+
+static bool	get(
+	const t_ft_bst_static_get *context,
+	t_ft_bst_static_node *node
+)
 {
-	t_ft_bst_static	*self;
-	void			*key;
-	void			*value;
-}	t_ft_bst_static_put;
+	int	comparison;
 
-#endif
+	if (!node)
+		return (false);
+	comparison = context->self->comparator(node->value, context->value);
+	if (comparison < 0)
+		return (get(context, node->right));
+	if (comparison > 0)
+		return (get(context, node->left));
+	memcpy(context->value, node->value, context->self->value_length);
+	return (false);
+}
+
+bool	ft_bst_static_get(
+	t_ft_bst_static *self,
+	void *key,
+	void *value
+)
+{
+	const t_ft_bst_static_get	context = {self, key, value};
+
+	return (get(&context, self->root));
+}
