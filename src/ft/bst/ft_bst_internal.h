@@ -10,36 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BST_H
-# define FT_BST_H
+#ifndef FT_BST_INTERNAL_H
+# define FT_BST_INTERNAL_H
 
 # include "ft_bst_types.h"
 
-# include "ft_types.h"
-
-typedef t_err	(*t_ft_bst_static_iterate_param)(
-					void *context,
-					void *key,
-					void *value);
-
-t_ft_bst_static		*new_ft_bst_static(
-						size_t key_length,
-						size_t value_length);
-bool				ft_bst_static_get(
-						t_ft_bst_static *self,
-						void *key,
-						void *value);
-t_err				ft_bst_static_put(
-						t_ft_bst_static *self,
-						void *key,
-						void *value);
-bool				ft_bst_static_pop(
-						t_ft_bst_static *self,
-						void *key,
-						void *value);
-t_err				ft_bst_static_iterate(
-						t_ft_bst_static *self,
-						void *t_ft_bst_static_iterate_param,
-						void *value);
+typedef struct s_ft_bst_static_put
+{
+	t_ft_bst_static	*self;
+	void			*key;
+	void			*value;
+}	t_ft_bst_static_put;
 
 #endif

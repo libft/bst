@@ -23,11 +23,14 @@ typedef struct s_ft_bst_static_node
 	unsigned char				value[];
 }	t_ft_bst_static_node;
 
+typedef int	(*t_ft_bst_static_comparator)(void *a, void *b);
+
 typedef struct s_ft_bst_static
 {
-	size_t					key_length;
-	size_t					value_length;
-	t_ft_bst_static_node	*root;
+	size_t						key_length;
+	size_t						value_length;
+	t_ft_bst_static_node		*root;
+	t_ft_bst_static_comparator	comparator;
 }	t_ft_bst_static;
 
 #endif
