@@ -25,16 +25,18 @@ re:
 	$(Q3)$(MAKE) all
 test:
 	$(Q2)find src -type d -name test | sort | xargs -L1 $(MAKE) -C
+	$(Q2)sh test.sh
 	@echo "Some test might need manual review"
 .PHONY: all clean fclean re refresh test
 
 .PHONY: pre_dev
 pre_dev:
 	-$(Q2)$(MAKE) -C src dev
+	-$(Q2)$(MAKE) -C test build
 	-$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} dev
 .PHONY: compile_commands.json
 compile_commands.json: pre_dev
-	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (printf "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && printf "]") > $@
+	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (printf "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && find test -name "*.production.release.o.compile_commands.part.json" | xargs cat && printf "]") > $@
 .PHONY: .vscode/launch.json
 .vscode/launch.json: pre_dev
 	$(Q2)(cat template/launch.json.before.txt && find src -name launch.part.json | xargs cat && cat template/launch.json.after.txt) > $@

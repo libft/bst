@@ -10,6 +10,7 @@ SUB_RULES := test clean fclean build
 
 .PHONY: $(SUB_RULES)
 $(SUB_RULES):
+	$(Q2)make -C static_put $@
 
 .PHONY: re
 re:
