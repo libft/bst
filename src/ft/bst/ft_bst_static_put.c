@@ -32,6 +32,8 @@ static t_ft_bst_static_node	*new_node(const t_ft_bst_static_context_r *context)
 	t_ft_bst_static_node *const	result = malloc(sizeof(t_ft_bst_static_node)
 			+ context->self->value_length + context->self->key_length);
 
+	if (!result)
+		return (NULL);
 	result->left = NULL;
 	result->right = NULL;
 	result->key = &result->value[context->self->value_length];

@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/leak_test.h"
 #include "ft_bst.h"
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "ft/leak_test.h"
 
 static int	size_t_comparator(const void *a, const void *b)
 {

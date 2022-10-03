@@ -25,6 +25,7 @@ static void	free_subtree(t_ft_bst_static_node *node)
 
 void	ft_bst_static_free(t_ft_bst_static *self)
 {
-	free_subtree(self->root);
+	if (self->root)
+		free_subtree(self->root);
 	free(self);
 }
