@@ -71,14 +71,14 @@ static bool	pop(
 
 	if (!*node)
 		return (false);
-	comparison = context->self->comparator((*node)->value, context->value);
+	comparison = context->self->comparator((*node)->key, context->key);
 	if (comparison < 0)
 		return (pop(context, &(*node)->right));
 	if (comparison > 0)
 		return (pop(context, &(*node)->left));
 	memcpy(context->value, (*node)->value, context->self->value_length);
 	delete_node(node);
-	return (false);
+	return (true);
 }
 
 bool	ft_bst_static_pop(

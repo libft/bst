@@ -34,13 +34,13 @@ static bool	get(
 
 	if (!node)
 		return (false);
-	comparison = context->self->comparator(node->value, context->value);
+	comparison = context->self->comparator(node->key, context->key);
 	if (comparison < 0)
 		return (get(context, node->right));
 	if (comparison > 0)
 		return (get(context, node->left));
 	memcpy(context->value, node->value, context->self->value_length);
-	return (false);
+	return (true);
 }
 
 bool	ft_bst_static_get(
