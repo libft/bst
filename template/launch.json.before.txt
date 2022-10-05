@@ -4,8 +4,16 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Launch",
+      "name": "Launch test/black/static_put",
       "program": "${workspaceFolder}/test/black/static_put/.cache/test.development.debug.exe",
       "cwd": "${workspaceFolder}/test/black/static_put/",
       "preLaunchTask": "Build test/black/static_put",
+    }
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Launch test/black/static_get",
+      "program": "${workspaceFolder}/test/black/static_get/.cache/test.development.debug.exe",
+      "cwd": "${workspaceFolder}/test/black/static_get/",
+      "preLaunchTask": "Build test/black/static_get",
     }
