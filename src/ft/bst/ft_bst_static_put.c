@@ -54,7 +54,7 @@ static t_err	put(
 		*node = new_node(context);
 		return (!*node);
 	}
-	comparison = context->self->comparator((*node)->value, context->value);
+	comparison = context->self->comparator((*node)->key, context->key);
 	if (comparison < 0)
 		return (put(context, &(*node)->right));
 	if (comparison > 0)
