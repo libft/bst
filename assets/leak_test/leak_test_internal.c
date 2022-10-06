@@ -78,7 +78,7 @@ int	leak_test(
 	my_context.count_limit = 0;
 	error = leak_test_internal_execute(&my_context);
 	if (error)
-		return (FT_LEAK_TEST_RESULT_ERROR);
+		return (error);
 	my_context.count_limit = my_context.total_count;
 	if (!my_context.count_limit && !my_context.options.allow_empty)
 		return (FT_LEAK_TEST_RESULT_NO_ALLOCATION);
