@@ -13,3 +13,9 @@
       "command": "make -C test/black/static_get PROFILE=debug TARGET=development .cache/test.development.debug.exe",
       "problemMatcher": ["$gcc"],
     }
+    {
+      "label": "Build test/black/static_iterate",
+      "type": "shell",
+      "command": "make -C test/black/static_iterate PROFILE=debug TARGET=development .cache/test.development.debug.exe",
+      "problemMatcher": ["$gcc"],
+    }

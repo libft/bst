@@ -17,3 +17,11 @@
       "cwd": "${workspaceFolder}/test/black/static_get/",
       "preLaunchTask": "Build test/black/static_get",
     }
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Launch test/black/static_iterate",
+      "program": "${workspaceFolder}/test/black/static_iterate/.cache/test.development.debug.exe",
+      "cwd": "${workspaceFolder}/test/black/static_iterate/",
+      "preLaunchTask": "Build test/black/static_iterate",
+    }
