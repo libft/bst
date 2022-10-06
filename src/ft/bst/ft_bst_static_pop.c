@@ -76,7 +76,8 @@ static bool	pop(
 		return (pop(context, &(*node)->right));
 	if (comparison > 0)
 		return (pop(context, &(*node)->left));
-	memcpy(context->value, (*node)->value, context->self->value_length);
+	if (context->value)
+		memcpy(context->value, (*node)->value, context->self->value_length);
 	delete_node(node);
 	return (true);
 }
