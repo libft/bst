@@ -49,9 +49,9 @@ static void	delete_node(
 	if (!(*node)->left && !(*node)->right)
 		replacement = NULL;
 	else if (!(*node)->left)
-		replacement = (*node)->left;
-	else if (!(*node)->right)
 		replacement = (*node)->right;
+	else if (!(*node)->right)
+		replacement = (*node)->left;
 	else
 	{
 		replacement = pop_right_node(&(*node)->left);
