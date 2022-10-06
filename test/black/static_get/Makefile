@@ -1,1 +1,1 @@
-include ../static_put/Makefile
+include ../common.mk
