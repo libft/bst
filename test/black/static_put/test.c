@@ -12,7 +12,6 @@
 
 #include "test.h"
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -28,77 +27,27 @@ static int	size_t_comparator(const void *a, const void *b)
 	return (0);
 }
 
-static size_t	skipped(bool inserted[7], size_t skip)
+bool	test_leak(const void *context)
 {
-	size_t	result;
+	const size_t *const	order = context;
+	t_ft_bst_static		*bst;
+	size_t				i;
 
-	result = 0;
-	while (inserted[result])
-		result++;
-	while (skip--)
-	{
-		result++;
-		while (inserted[result])
-			result++;
-	}
-	inserted[result] = true;
-	return (result);
-}
-
-static void	test(size_t skip[6])
-{
-	bool			inserted[7];
-	size_t			i;
-	size_t			order[7];
-	t_ft_bst_static	*bst;
-	int				errno;
-
-	i = -1;
-	while (++i < 7)
-		inserted[i] = 0;
-	i = -1;
-	while (++i < 6)
-		order[i] = skipped(inserted, skip[i]);
-	order[i] = skipped(inserted, 0);
-	errno = leak_test(test_leak, order, NULL);
-	if (errno)
-		printf("leak_test: %s\n", leak_test_error(errno));
+	leak_test_start();
 	bst = new_ft_bst_static(
 			sizeof(size_t), sizeof(size_t), size_t_comparator);
 	if (!bst)
-		exit(EXIT_FAILURE);
+		return (false);
 	i = -1;
 	while (++i < 7)
-		if (ft_bst_static_put(bst, &order[i], &order[i]))
-			exit(EXIT_FAILURE);
-	ft_bst_static_free(bst);
-}
-
-int	main(void)
-{
-	size_t	skip[6];
-
-	skip[0] = -1;
-	while (++skip[0] < 7)
 	{
-		skip[1] = -1;
-		while (++skip[1] < 6)
+		if (ft_bst_static_put(bst, &order[i], &order[i]))
 		{
-			skip[2] = -1;
-			while (++skip[2] < 5)
-			{
-				skip[3] = -1;
-				while (++skip[3] < 4)
-				{
-					skip[4] = -1;
-					while (++skip[4] < 3)
-					{
-						skip[5] = -1;
-						while (++skip[5] < 2)
-							test(skip);
-					}
-				}
-			}
+			ft_bst_static_free(bst);
+			return (false);
 		}
 	}
+	ft_bst_static_free(bst);
+	leak_test_end();
+	return (false);
 }
