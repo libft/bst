@@ -10,39 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BST_H
-# define FT_BST_H
+#include "ft_bst.h"
 
-# include "ft_bst_types.h"
+#include "ft_bst_internal.h"
 
-# include "ft_types.h"
+static t_err	iterate(
+	t_ft_bst_static *self,
+	t_ft_bst_static_node *node,
+	t_ft_bst_static_iterate_func func,
+	void *context
+)
+{
+	if (!node)
+		return (false);
+	if (iterate(self, node->left, func, context))
+		return (true);
+	if (func(context, node->key, node->value))
+		return (true);
+	if (iterate(self, node->right, func, context))
+		return (true);
+	return (false);
+}
 
-typedef t_err	(*t_ft_bst_static_iterate_func)(
-					void *context,
-					const void *key,
-					void *value);
-
-t_ft_bst_static		*new_ft_bst_static(
-						size_t key_length,
-						size_t value_length,
-						t_ft_bst_static_comparator comparator);
-bool				ft_bst_static_get(
-						t_ft_bst_static *self,
-						const void *key,
-						void *value);
-t_err				ft_bst_static_put(
-						t_ft_bst_static *self,
-						const void *key,
-						const void *value);
-bool				ft_bst_static_pop(
-						t_ft_bst_static *self,
-						const void *key,
-						void *value);
-t_err				ft_bst_static_iterate(
-						t_ft_bst_static *self,
-						t_ft_bst_static_iterate_func func,
-						void *context);
-void				ft_bst_static_free(
-						t_ft_bst_static *self);
-
-#endif
+t_err	ft_bst_static_iterate(
+	t_ft_bst_static *self,
+	t_ft_bst_static_iterate_func func,
+	void *context
+)
+{
+	return (iterate(self, self->root, func, context));
+}
