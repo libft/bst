@@ -25,6 +25,6 @@ typedef struct s_test_orders
 }	t_test_orders;
 
 bool	check(t_ft_bst_static *bst, bool full);
-void	test(size_t order1[7], size_t order2[7]);
+void	test(size_t order1[6], size_t order2[6]);
 
 #endif

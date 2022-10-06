@@ -27,24 +27,24 @@ static int	size_t_comparator(const void *a, const void *b)
 	return (0);
 }
 
-static t_err	put(t_ft_bst_static *bst, size_t order[7])
+static t_err	put(t_ft_bst_static *bst, size_t order[6])
 {
 	size_t	i;
 
 	i = -1;
-	while (++i < 7)
+	while (++i < 6)
 		if (ft_bst_static_put(bst, &order[i], &order[i]))
 			return (true);
 	return (false);
 }
 
-static t_err	pop(t_ft_bst_static *bst, size_t order[7])
+static t_err	pop(t_ft_bst_static *bst, size_t order[6])
 {
 	size_t	i;
 	size_t	value;
 
 	i = -1;
-	while (++i < 7)
+	while (++i < 6)
 		if (ft_bst_static_pop(bst, &order[i], &value))
 			if (order[i] != value || check(bst, false))
 				return (true);
@@ -73,7 +73,7 @@ static bool	test_leak(const void *context)
 	return (result);
 }
 
-void	test(size_t order1[7], size_t order2[7])
+void	test(size_t order1[6], size_t order2[6])
 {
 	const t_test_orders	orders = {order1, order2};
 	const int			errno = leak_test(test_leak, &orders, NULL);

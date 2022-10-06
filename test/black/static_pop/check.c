@@ -35,7 +35,7 @@ bool	check(t_ft_bst_static *bst, bool full)
 
 	i = -1;
 	if (full)
-		while (++i < 7)
+		while (++i < 6)
 			if (!ft_bst_static_get(bst, &i, &value) || value != i)
 				return (true);
 	i = -1;
