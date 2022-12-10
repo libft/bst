@@ -11,6 +11,8 @@ CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS) $(COMMON_FLAGS) -
 LDFLAGS := $(COMMON_FLAGS)
 endif
 
+LDFLAGS += -L $(BASE_PATH)/../assets/leak_test -lft_leak_test.address
+
 $(BASE_PATH)/../assets/leak_test/libft_leak_test.address.a:
 	$(Q2)$(MAKE) -C $(@D) $(@F)
 
@@ -18,7 +20,7 @@ $(BASE_PATH)/../assets/leak_test/libft_leak_test.address.a:
 	$(Q2)$(CC) -MMD -MJ $@.compile_commands.part.json $(CFLAGS) -o $@ -x c -c $<
 %.a:
 	$(Q2)$(AR) $(ARFLAGS) $@ $^
-%.exe: $(BASE_PATH)/../assets/leak_test/libft_leak_test.address.a
+%.exe: | $(BASE_PATH)/../assets/leak_test/libft_leak_test.address.a
 	$(Q2)$(CC) $(LDFLAGS) -o $@ $^
 
 Makefile: deps.mk
